@@ -17,15 +17,6 @@ tmax = 30
 t_span = np.array([tmin,tmax])#t_span
 step = 0.001     #time step
 gamma_mat = np.linspace(1.2,1.9,169)
-#---- Parameters
-hbar = 197.327  #hbarc [MeV fm]
-m_N = 938.27  #nucleon mass
-m_e = 0.511   #electron mass
-mu = 2   #num on nucleons per electron
-G = 3.743*10**(19) #in MeV
-n0 = 0.16144 #nuclear density [fm^-3]
-K1 = ((hbar**2/(15*m_e*pi**2))*(3*pi**2/(m_N*mu)))**(5/3)   #small mass
-K2 = ((hbar/(12*pi**2))*(3*pi**2/(m_N*mu)))**(4/3)      #large mass
 M_rescale = 200
 S = np.zeros(len(gamma_mat))
 S3 = np.zeros((3,len(gamma_mat)))
@@ -36,7 +27,7 @@ kappa_val = np.array([0.95,1.00,1.05])
 iterations = 10000
 
 
-# Figure 2 Normalized modal fraction f(|k|) for sample values of polytropic index gamma (figure 1 of paper)
+# Figure 2
 plt.figure(2)
 plt.ylabel(r"$\bar f(|k|)$")
 plt.xlabel(r"$k/\sqrt{4\pi G/K\rho_0^{\gamma-2}}$")
@@ -44,16 +35,14 @@ plt.xlim([0, 1.5])
 plt.ylim([0, 1.1])  
 plt.grid()
 
-# Figure 4 Configurational entropy times \rho^(-1) (continuous line) and mass (dotted line) versus polytropic 
-# index gamma (figure 2 of paper)
+# Figure 4 
 plt.figure(4)
 plt.xlabel(r"$\gamma$")
 plt.xlim([1.25, 1.7])
 plt.ylim([0.4, 1.3])
 plt.grid()
 
-# Figure 3 Configurational entropy versus polytropic index gamma for polytropes. We display results for several 
-# choices of cutoff for k_min (figure 5 of paper)
+# Figure 3
 plt.figure(3)
 plt.xlabel(r"$\gamma$")
 plt.ylabel(r"$Sa^{3}$")
@@ -78,6 +67,7 @@ for i,gamma in enumerate(gamma_mat):
     if gamma in plot_le:
         num = str(round(gamma,1))
         l = 'γ='+num
+        #Figure(1)
         plt.figure(1)
         plt.plot(X,Y[0],label=l)
         plt.legend()
@@ -149,5 +139,3 @@ plt.legend()
 
 
 plt.show()
-
-
