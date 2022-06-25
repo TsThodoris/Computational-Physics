@@ -21,8 +21,11 @@ for i in range(n):
 inv_nums = inv_nums[numpy.logical_not(numpy.isnan(inv_nums))]
 #ploting
 sm.qqplot(rand_nums,line='45',fit=True,dist=stats.norm)
+plt.title("Normal Distribution and exp random numbers")
 sm.qqplot(inv_nums,line='45',fit=True,dist=stats.expon)
+plt.title("Exponential Distribution and inverse exp random numbers")
 sm.qqplot(inv_nums,line='45',fit=True,dist=stats.norm)
+plt.title("Normal Distribution and inverse exp random numbers")
 sm.qqplot(inv_nums,line='45',fit=True,dist=stats.uniform)
+plt.title("Uniform Distribution and invers exp random numbers")
 plt.show()
-
