@@ -66,6 +66,11 @@ for ind,n in enumerate(ns):
     elif case_val == 1: c = c3
     data[ind] = c/n
 
+# x axis limit for every case
+if case_val == 0: x_lim = [0.3,0.4]
+elif case_val == 0.5: x_lim = [0.6,0.7]
+elif case_val == 1: x_lim = [0.5,0.6]
+
 plt.plot(ns,data)
 plt.scatter(ns,data)
 plt.title("Probability of wining with increasing number of iterations")
@@ -74,6 +79,6 @@ plt.ylabel("Probability")
 plt.figure(2)
 plt.hist(data)
 plt.xlabel("Probability")
-plt.xlim([0.3,0.4])
+plt.xlim(x_lim)
 plt.title("Histogram of probability values for each number of iterations")
 plt.show()
