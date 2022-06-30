@@ -12,9 +12,9 @@ doors = ["A","B","C"]
 
 #----- Parameters and arrays
 
-ns = numpy.linspace(10,1000000,100)   #iterations
+ns = numpy.linspace(10,10000,100)   #iterations
 gen = numpy.random.default_rng(12345)   #random number generator
-case_val = 0    #values: 0,0.5 and 1 for case a,b and c respectively
+case_val = 1    ##### values: 0,0.5 and 1 for case a,b and c respectively #####
 data = numpy.zeros(len(ns))
 plt.figure(1)
 
@@ -66,10 +66,10 @@ for ind,n in enumerate(ns):
     elif case_val == 1: c = c3
     data[ind] = c/n
 
-# x axis limit for every case
-if case_val == 0: x_lim = [0.3,0.4]
-elif case_val == 0.5: x_lim = [0.6,0.7]
-elif case_val == 1: x_lim = [0.5,0.6]
+    
+if case_val == 0: x_lim = [0.2,0.5]
+elif case_val == 0.5: x_lim = [0.5,0.8]
+elif case_val == 1: x_lim = [0.4,0.7]
 
 plt.plot(ns,data)
 plt.scatter(ns,data)
@@ -77,8 +77,10 @@ plt.title("Probability of wining with increasing number of iterations")
 plt.xlabel("n (iterations)")
 plt.ylabel("Probability")
 plt.figure(2)
-plt.hist(data)
+plt.hist(data,bins=50)
+plt.axvline(data.mean(),color='red',label='mean value = %.5f'%(data.mean()))
 plt.xlabel("Probability")
 plt.xlim(x_lim)
 plt.title("Histogram of probability values for each number of iterations")
+plt.legend()
 plt.show()
