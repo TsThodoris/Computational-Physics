@@ -1,2 +1,2 @@
-*Calculating the Configurational Entropy of cold White Dwarfs.First we calculate the solutions of the Lane-Emden for various
-*gamma and use the numerical solution as input for the calculation of the configurational entropy.
+Calculating the Configurational Entropy of cold White Dwarfs.First we calculate the solutions of the Lane-Emden for various
+gamma and use the numerical solution as input for the calculation of the configurational entropy.
