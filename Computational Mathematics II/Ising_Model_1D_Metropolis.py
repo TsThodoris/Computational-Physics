@@ -60,7 +60,7 @@ def plotting(func1,func2,fig_num,tl,y1l,y2l,xl):
 nsteps = 100000
 nsites = 10000  #lattice sites
 J = 1  # stregnth of exchange interaction
-T_mat = np.array([0.000001,10,20])
+T_mat = np.array([1,10,20])
 fig1, axs =plt.subplots(3,sharex = True)
 fig2, axs2 = plt.subplots(3,sharex = True)
 fig1.tight_layout()
