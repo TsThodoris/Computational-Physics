@@ -17,7 +17,8 @@ def calc_energy(state,J):
     E = 0.0
     for i in range(counter):
         si = state[i]
-        sj = state[(i+1)%counter]   #% for indexing
+        index = (i+1)%counter
+        sj = state[index]   #% for indexing
         E = E-J*(si*sj)
     return E
 
@@ -25,13 +26,13 @@ def energy_diff(J,S,sl,sr):
     return 2*J*S*(sl+sr)
     
 def metropolis(nsteps,nsites,beta,J):
-    state = initial_state(nsteps)
+    state = initial_state(nsites)
     E = calc_energy(state,J)
     spins = np.zeros(nsteps)
     energy_mat = np.zeros(nsteps)
     
     for i in range(nsteps):
-        ind = gen.integers(0,nsteps)
+        ind = gen.integers(nsites)
         change_spin = state[ind]
         si = state[(ind-1)%nsites]
         sj = state[(ind+1)%nsites]
@@ -39,7 +40,7 @@ def metropolis(nsteps,nsites,beta,J):
         dE = energy_diff(J,change_spin,si,sj)
         r = gen.uniform()
         #Metropolis
-        if r < np.exp(-dE*beta):
+        if r < min(1,np.exp(-(dE)*beta)):
             state[ind] *= -1    #accept change
             E += dE
         spins[i] = state.mean()
@@ -47,9 +48,11 @@ def metropolis(nsteps,nsites,beta,J):
 
     return spins,energy_mat
 
-def plotting(func,fig_num,tl,yl,xl):
-    axs[fig_num].plot(func)
+def plotting(func1,func2,fig_num,tl,y1l,y2l,xl):
+    axs[fig_num].plot(func1)
     axs[fig_num].set_title(tl)
+    axs2[fig_num].plot(func2)
+    axs2[fig_num].set_title(tl)
     
     
 
@@ -57,16 +60,21 @@ def plotting(func,fig_num,tl,yl,xl):
 nsteps = 100000
 nsites = 10000  #lattice sites
 J = 1  # stregnth of exchange interaction
-T_mat = np.array([1,10,20])
-fig, axs =plt.subplots(3,sharex = True)
-fig.tight_layout()
+T_mat = np.array([0.000001,10,20])
+fig1, axs =plt.subplots(3,sharex = True)
+fig2, axs2 = plt.subplots(3,sharex = True)
+fig1.tight_layout()
+fig2.tight_layout()
 for ind,T in enumerate(T_mat):
     beta = 1/T
     spins,energies = metropolis(nsteps,nsites,beta,J)
     title = r'$\beta=%.3f,T=%d$'%(beta,T)
     xls = 'Steps'
-    yls = r'$m$'
-    plotting(spins,ind,title,yls,xls)
+    y1ls = r'$m$'
+    y2ls = r'$E$'
+    plotting(spins,energies,ind,title,y1ls,y2ls,xls)
+    
 plt.xlabel('Steps')
-fig.supylabel(r'$m$')
+fig1.supylabel(r'$m$')
+fig2.supylabel(r'$E$')
 plt.show()
